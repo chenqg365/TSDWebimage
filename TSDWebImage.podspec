@@ -1,42 +1,46 @@
-#
-# Be sure to run `pod lib lint TSDWebImage.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
-#
+
+#pod repo push KDRepositories TSDWebImage.podspec  --verbose --allow-warnings --use-libraries --sources=git@gitlab.baertt.com:client_side/ios/kdrepositories.git
 
 Pod::Spec.new do |s|
-  s.name             = 'TSDWebImage'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of TSDWebImage.'
+  s.name = 'TSDWebImage'
+  s.version = '5.0.9'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
-
-  s.homepage         = 'https://github.com/chenqg365/TSDWebImage'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'chenqg365' => 'chenqg3721@163.com' }
-  s.source           = { :git => 'https://github.com/chenqg365/TSDWebImage.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
+  s.osx.deployment_target = '10.10'
   s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '2.0'
 
-  s.source_files = 'TSDWebImage/Classes/**/*'
+  s.license = 'MIT'
+  s.summary = 'based on 5.0.6.'
+  s.homepage = 'https://github.com/chenqg365/TSDWebimage'
+  s.author = { 'Olivier Poitrey' => 'rs@dailymotion.com' }
+  s.source = { :git => 'https://github.com/chenqg365/TSDWebimage.git', :tag => s.version.to_s }
+
+  s.description = 'This library provides a category for UIImageView with support for remote '      \
+                  'images coming from the web. It provides an UIImageView category adding web '    \
+                  'image and cache management to the Cocoa Touch framework, an asynchronous '      \
+                  'image downloader, an asynchronous memory + disk image caching with automatic '  \
+                  'cache expiration handling, a guarantee that the same URL won\'t be downloaded ' \
+                  'several times, a guarantee that bogus URLs won\'t be retried again and again, ' \
+                  'and performances!'
+
+  s.requires_arc = true
+  s.framework = 'ImageIO'
   
-  # s.resource_bundles = {
-  #   'TSDWebImage' => ['TSDWebImage/Assets/*.png']
-  # }
+  s.default_subspec = 'Core'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.subspec 'Core' do |core|
+    core.source_files = 'SDWebImage/*.{h,m}', 'WebImage/SDWebImage.h', 'SDWebImage/Private/*.{h,m}'
+    core.exclude_files = 'SDWebImage/MapKit/*.{h,m}'
+    core.private_header_files = 'SDWebImage/Private/*.h'
+  end
+
+  s.subspec 'MapKit' do |mk|
+    mk.osx.deployment_target = '10.10'
+    mk.ios.deployment_target = '8.0'
+    mk.tvos.deployment_target = '9.2'
+    mk.source_files = 'SDWebImage/MapKit/*.{h,m}'
+    mk.framework = 'MapKit'
+    mk.dependency 'TSDWebImage/Core'
+  end
 end
