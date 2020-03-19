@@ -5,7 +5,7 @@ method from the `tableView:cellForRowAtIndexPath:` `UITableViewDataSource` metho
 handled for you, from async downloads to caching management.
 
 ```objective-c
-#import <TSDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 ...
 

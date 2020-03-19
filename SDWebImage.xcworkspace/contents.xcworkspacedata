@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:SDWebImage.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:Examples/SDWebImage Demo.xcodeproj">
    </FileRef>
    <FileRef
@@ -17,7 +14,7 @@
       location = "group:README.md">
    </FileRef>
    <FileRef
-      location = "group:/Users/lichanghong/Documents/TSDWebImage/TSDWebImage.podspec">
+      location = "group:SDWebImage.podspec">
    </FileRef>
    <FileRef
       location = "group:CHANGELOG.md">

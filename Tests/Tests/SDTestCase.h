@@ -12,7 +12,7 @@
 
 #import <XCTest/XCTest.h>
 #import <Expecta/Expecta.h>
-#import <TSDWebImage/SDWebImage.h>
+#import <SDWebImage/SDWebImage.h>
 
 #if SD_MAC
 #define UIWindow NSWindow

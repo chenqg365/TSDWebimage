@@ -62,13 +62,14 @@
 }
 
 - (void)test06CancellAll {
-    XCTestExpectation *expectation = [self expectationWithDescription:@"Cancel"];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Cancel should callback with error"];
     
     // need a bigger image here, that is why we don't use kTestJPEGURL
     // if the image is too small, it will get downloaded before we can cancel :)
     NSURL *url = [NSURL URLWithString:@"https://raw.githubusercontent.com/liyong03/YLGIFImage/master/YLGIFImageDemo/YLGIFImageDemo/joy.gif"];
     [[SDWebImageManager sharedManager] loadImageWithURL:url options:0 progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-        XCTFail(@"Should not get here");
+        expect(error).notTo.beNil();
+        expect(error.code).equal(SDWebImageErrorCancelled);
     }];
     
     [[SDWebImageManager sharedManager] cancelAll];
@@ -244,6 +245,27 @@
     }];
     
     [self waitForExpectationsWithCommonTimeout];
+}
+
+- (void)test13ThatScaleDownLargeImageUseThumbnailDecoding {
+    XCTestExpectation *expectation = [self expectationWithDescription:@"SDWebImageScaleDownLargeImages should translate to thumbnail decoding"];
+    NSURL *originalImageURL = [NSURL URLWithString:@"http://via.placeholder.com/3999x3999.png"]; // Max size for this API
+    NSUInteger defaultLimitBytes = SDImageCoderHelper.defaultScaleDownLimitBytes;
+    SDImageCoderHelper.defaultScaleDownLimitBytes = 1000 * 1000 * 4; // Limit 1000x1000 pixel
+    // From v5.5.0, the `SDWebImageScaleDownLargeImages` translate to `SDWebImageContextImageThumbnailPixelSize`, and works for progressive loading
+    [SDWebImageManager.sharedManager loadImageWithURL:originalImageURL options:SDWebImageScaleDownLargeImages | SDWebImageProgressiveLoad progress:nil completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+        expect(image).notTo.beNil();
+        expect(image.size).equal(CGSizeMake(1000, 1000));
+        if (finished) {
+            [expectation fulfill];
+        } else {
+            expect(image.sd_isIncremental).beTruthy();
+        }
+    }];
+    
+    [self waitForExpectationsWithCommonTimeoutUsingHandler:^(NSError * _Nullable error) {
+        SDImageCoderHelper.defaultScaleDownLimitBytes = defaultLimitBytes;
+    }];
 }
 
 - (NSString *)testJPEGPath {

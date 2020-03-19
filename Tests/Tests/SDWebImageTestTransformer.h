@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-#import <TSDWebImage/SDImageTransformer.h>
+#import <SDWebImage/SDImageTransformer.h>
 
 @interface SDWebImageTestTransformer : NSObject <SDImageTransformer>
 

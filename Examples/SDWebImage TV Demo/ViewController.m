@@ -7,7 +7,7 @@
  */
 
 #import "ViewController.h"
-#import <TSDWebImage/SDWebImage.h>
+#import <SDWebImage/SDWebImage.h>
 #import <SDWebImageWebPCoder/SDWebImageWebPCoder.h>
 
 @interface ViewController ()

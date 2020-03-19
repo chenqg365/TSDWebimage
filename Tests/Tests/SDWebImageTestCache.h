@@ -7,8 +7,8 @@
  * file that was distributed with this source code.
  */
 
-#import <TSDWebImage/SDMemoryCache.h>
-#import <TSDWebImage/SDDiskCache.h>
+#import <SDWebImage/SDMemoryCache.h>
+#import <SDWebImage/SDDiskCache.h>
 
 // A really naive implementation of custom memory cache and disk cache
 

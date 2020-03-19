@@ -8,7 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <TSDWebImage/SDWebImageDownloaderOperation.h>
+#import <SDWebImage/SDWebImageDownloaderOperation.h>
 
 /**
  *  A class that fits the NSOperation+SDWebImageDownloaderOperation requirement so we can test
