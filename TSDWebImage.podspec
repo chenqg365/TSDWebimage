@@ -12,9 +12,9 @@ Pod::Spec.new do |s|
 
   s.license = 'MIT'
   s.summary = 'based on 5.0.6.'
-  s.homepage = 'https://github.com/chenqg365/TSDWebimage'
+  s.homepage = 'https://github.com/heng66/TSDWebimage'
   s.author = { 'Olivier Poitrey' => 'rs@dailymotion.com' }
-  s.source = { :git => 'https://github.com/chenqg365/TSDWebimage.git', :tag => s.version.to_s }
+  s.source = { :git => 'https://github.com/heng66/TSDWebimage.git', :tag => s.version.to_s }
 
   s.description = 'This library provides a category for UIImageView with support for remote '      \
                   'images coming from the web. It provides an UIImageView category adding web '    \
